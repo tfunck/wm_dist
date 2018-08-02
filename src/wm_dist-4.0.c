@@ -12,12 +12,11 @@
 #define TRUE 1
 #define FALSE 0
 #define MAX 99999 //FIXME: Only makes sense for brains at the mm scale, may have to be adapted for other applications
-int VERBOSE=TRUE;
 float pseudo_inf=999999; //9999999;
 float dx, dy, dz, dx2, dy2, dz2;
 int xmax, ymax, zmax, xymax;
 
-void pexit(char* string1, char* string2, int number) {
+static void pexit(char* string1, char* string2, int number) {
     fprintf(stderr, "Error: %s\t%s\n", string1, string2); 
     exit(number);
 }
@@ -205,20 +204,6 @@ void* wm_dist_threaded(void*);
 void useage();
 
 
-/*int check_input_files(char *file_inputs[], int n_file_inputs){
-    int i;
-    if(VERBOSE); 
-    printf("Number of file inputs: %d\n", n_file_inputs);
-    for(i=0; i < n_file_inputs; i++){
-        if( access( file_inputs[i], R_OK ) != -1 ) {
-            if(VERBOSE) printf("Can read file: %s\n", file_inputs[i]);
-        } else {
-            printf("Error: could not access %s\n", file_inputs[i]);
-            return 1;
-        }
-    }
-    return 0 ;
-}*/
 
 struct wm_vol_args{
     char* example_fn;
@@ -334,7 +319,7 @@ int** wm_gm_border(data* img, float** mesh, const long int label, const long int
     //    printf("%d\t%d\n", fill_wm[i][0], fill_wm[i][1]);
     //}
     //for(int i=0; i<n; i++) if(border[i][4] > 0) printf("%d\n", border[i][4]);
-   if(VERBOSE) printf("%3.1f% ( %d / %d ) of voxels can be skipped \n", 100.0 * (float) *nReplace / n, (int) *nReplace ,n); 
+   printf("%3.1f% ( %d / %d ) of voxels can be skipped \n", 100.0 * (float) *nReplace / n, (int) *nReplace ,n); 
 
     return(border);
 }
@@ -371,7 +356,7 @@ float** readVertices(const char* Meshfilename, const char* surface_mask_fn, unsi
         exit(1);
     }
     
-    if(VERBOSE && subsample > 0) printf("Mesh with %d vertices was subsampled %d (by factor of %d) to %d vertices\n", *nvertices, subsample, subsample_factor, nmax);
+    if(subsample > 0) printf("Mesh with %d vertices was subsampled %d (by factor of %d) to %d vertices\n", *nvertices, subsample, subsample_factor, nmax);
     mesh=malloc(sizeof(*mesh) * *nvertices);
 
     while( getline(&meshBuffer, &meshBufferN, MeshFile) != 0 )  {
@@ -865,7 +850,7 @@ void wm_dist_singlethread(data* img, long int* img_vol, int** gm_border, float* 
     int i;
 
     for( i=start; i < n; i += step){ //Iterate over nodes on WM-GM border
-        if(VERBOSE){ printf("\rThread %d: %3.1f",start, (float) 100.0 * i/n); fflush(stdout);}
+		printf("\rThread %d: %3.1f",start, (float) 100.0 * i/n); fflush(stdout);
         for(int j=0; j<max; j++){ 
             considered[j].dist=&pseudo_inf;
             distances[j]=pseudo_inf;
@@ -950,7 +935,6 @@ int wm_dist_multithreaded(data* img, long int* img_vol, int** gm_border, long in
         if(rc!=0) pexit("Error: joining thread", "", 1);
     }
 
-    if(VERBOSE  ) printf("\r\n");
     return(0);
 }
 
