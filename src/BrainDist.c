@@ -24,7 +24,7 @@ static PyObject*  BrainDist_wm_dist(PyObject* self,  PyObject* args) {
 	Py_RETURN_NONE;
 }
 
-static PyObject*  BrainDist_surf_dist(PyObject* self,  PyObject* args) {
+/*static PyObject*  BrainDist_surf_dist(PyObject* self,  PyObject* args) {
 	char *mask_fn, *output_fn;
 	double dt;
     long int	inside_label, subsample, subsample_factor, n, VERBOSE;
@@ -71,14 +71,14 @@ static PyObject*  BrainDist_surf_dist(PyObject* self,  PyObject* args) {
 	surf_dist(inside_label, subsample, subsample_factor, n,  mask_fn, output_fn, VERBOSE, coords, nngh, ngh);
 
 	Py_RETURN_NONE;
-}
+}*/
 
 static char wm_dist_docs[] = "wm_dist( ): Calculate minimum distances through WM\n";
-static char surf_dist_docs[] = "surf_dist( ): Calculate minimum geodesic distance across surface\n";
+//static char surf_dist_docs[] = "surf_dist( ): Calculate minimum geodesic distance across surface\n";
 
 static PyMethodDef BrainDist_funcs[] = {
-   {"wm_dist", (PyCFunction) BrainDist_wm_dist, METH_VARARGS, wm_dist_docs},
-   {"surf_dist", (PyCFunction) BrainDist_surf_dist, METH_VARARGS, surf_dist_docs},
+  {"wm_dist", (PyCFunction) BrainDist_wm_dist, METH_VARARGS, wm_dist_docs},
+//   {"surf_dist", (PyCFunction) BrainDist_surf_dist, METH_VARARGS, surf_dist_docs},
    {NULL}
 };
 
@@ -87,14 +87,14 @@ static PyMethodDef BrainDist_funcs[] = {
 //#if PY_MAJOR_VERSION >= 3
     static struct PyModuleDef moduledef = {
        PyModuleDef_HEAD_INIT,
-        "BrainDist",     /* m_name */
-        "This is the wm_dist module",  /* m_doc */
-        -1,                  /* m_size */
-        BrainDist_funcs,    /* m_methods */
-        NULL,                /* m_reload */
-        NULL,                /* m_traverse */
-        NULL,                /* m_clear */
-        NULL,                /* m_free */
+        "BrainDist",     // m_name 
+        "This is the wm_dist module",  // m_doc
+        -1,                  // m_size 
+        BrainDist_funcs,    // m_methods
+        NULL,                // m_reload 
+        NULL,                // m_traverse 
+        NULL,                // m_clear 
+        NULL,                // m_free 
     };
 
 PyMODINIT_FUNC
