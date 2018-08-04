@@ -1,4 +1,3 @@
-
 import c_wm_dist
 from optparse import OptionParser, OptionGroup
 import nibabel as nib
@@ -25,7 +24,7 @@ def calculate(classified_fn, mesh_fn, matrix_fn, example_fn="", density_fn="", s
     #img_vol = img_vol.flatten()
     subsample, subsample_factor = [ int(i) for i in  subsample_list.split(',') ]
     
-    c_wm_dist.calculate(img_vol, steps, maxima, starts, opts.mesh_fn, opts.matrix_fn, opts.surface_mask_fn, opts.example_fn, opts.density_fn, np.int64(opts.label), opts.wm_search_depth, opts.max_threads, opts.example_vertex, subsample, subsample_factor,  opts.verbose  )
+    c_wm_dist.calculate(img_vol, steps, maxima, starts, mesh_fn, matrix_fn, surface_mask_fn, example_fn, density_fn, np.int64(label), wm_search_depth, max_threads, example_vertex, subsample, subsample_factor,  verbose  )
 
     return 0
 
